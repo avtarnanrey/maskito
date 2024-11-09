@@ -14,7 +14,7 @@ import {raiseSegmentValueToMin} from '../utils/date/raise-segment-value-to-min';
 
 export function createMinMaxDatePostprocessor({
     dateModeTemplate,
-    min = DEFAULT_MIN_DATE,
+    min,
     max = DEFAULT_MAX_DATE,
     rangeSeparator = '',
     dateSegmentSeparator = '.',
@@ -49,7 +49,7 @@ export function createMinMaxDatePostprocessor({
             }
 
             const date = segmentsToDate(parsedDate);
-            const clampedDate = clamp(date, min, max);
+            const clampedDate = min ? clamp(date, min, max) : date;
 
             validatedValue += toDateString(dateToSegments(clampedDate), {
                 dateMode: dateModeTemplate,
